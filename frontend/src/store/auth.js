@@ -11,12 +11,16 @@ const authSlice = createSlice({
         role: storedRole 
     },
     reducers: {
-        login(state) {
+        login(state, action) {
             state.isLoggedIn = true;
+            const { role } = action.payload; // Pass role during login
+            state.role = role;
             localStorage.setItem("isLoggedIn", "true");
+            localStorage.setItem("role", role);
         },
         logout(state) {
             state.isLoggedIn = false;
+            state.role = "user";
             localStorage.removeItem("isLoggedIn");
             localStorage.removeItem("role");
         },
