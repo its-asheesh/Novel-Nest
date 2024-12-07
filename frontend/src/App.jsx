@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Navbar from './components/Navbar/Navbar';
 import Footer from './components/Footer/Footer';
 import Home from './pages/Home';
+import AboutUs from './pages/AboutUs';
 import AllBooks from './pages/AllBooks';
 import LogIn from './pages/LogIn';
 import SignUp from './pages/SignUp';
@@ -41,6 +42,7 @@ const App = () => {
       <Routes>
         {/* Public Routes */}
         <Route path="/" element={<Home />} />
+        <Route path="/about-us" element={<AboutUs />} />
         <Route path="/all-books" element={<AllBooks />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<LogIn />} />

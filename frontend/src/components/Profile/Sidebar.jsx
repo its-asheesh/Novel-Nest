@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { FiMenu, FiX } from "react-icons/fi";
-import { authActions } from "../../store/auth";
+import { FaUser, FaRegHeart, FaHistory, FaCogs, FaPlus, FaBox } from "react-icons/fa";
+import { authActions } from "../../store/auth"; // Adjust path if needed
 
 const Sidebar = ({ data, loading, error }) => {
   const navigate = useNavigate();
@@ -19,21 +20,31 @@ const Sidebar = ({ data, loading, error }) => {
     navigate("/login");
   };
 
+  // Function to close the sidebar after a link is clicked
+  const handleLinkClick = () => {
+    setIsOpen(false); // Close the sidebar after clicking a link
+  };
+
+  // Function to toggle the sidebar
+  const toggleSidebar = () => {
+    setIsOpen(!isOpen); // Toggle the sidebar open/close
+  };
+
   return (
     <div className="relative">
       {/* Mobile Menu Toggle Button */}
-      <div className="lg:hidden bg-green-500 p-4 flex items-center justify-between">
-        <p className="text-white text-lg font-bold">Menu</p>
-        <button onClick={() => setIsOpen(!isOpen)} className="text-white text-2xl">
+      <div className="lg:hidden bg-zinc-800 p-4 flex items-center justify-between shadow-lg">
+        <p className="text-white text-lg font-semibold">Menu</p>
+        <button onClick={toggleSidebar} className="text-white text-2xl">
           {isOpen ? <FiX /> : <FiMenu />}
         </button>
       </div>
 
       {/* Sidebar */}
       <div
-        className={`lg:block fixed lg:relative lg:h-auto bg-zinc-900 text-white shadow-xl p-6 lg:w-auto w-64 h-full transform transition-transform rounded-lg flex flex-col justify-between ${
+        className={`lg:block fixed lg:relative bg-zinc-800 text-white shadow-xl p-6 lg:w-64 w-full h-full transform transition-all duration-300 ease-in-out rounded ${
           isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
-        }`}
+        } z-50`}  // Ensure z-index is higher than overlay
       >
         {/* User Info Section */}
         {loading ? (
@@ -45,10 +56,10 @@ const Sidebar = ({ data, loading, error }) => {
             <img
               src={data?.avatar || "/default-avatar.png"}
               alt="User Avatar"
-              className="h-24 w-24 rounded-full mx-auto border-4 border-green-500"
+              className="h-24 w-24 rounded-full mx-auto border-4 border-teal-500 shadow-lg"
             />
-            <p className="mt-6 text-lg font-bold text-gray-800">{data?.username || "Username"}</p>
-            <p className="text-sm text-gray-600">{data?.email || "email@example.com"}</p>
+            <p className="mt-4 text-lg font-semibold">{data?.username || "Username"}</p>
+            <p className="text-sm text-gray-400">{data?.email || "email@example.com"}</p>
           </div>
         )}
 
@@ -60,27 +71,27 @@ const Sidebar = ({ data, loading, error }) => {
           {role === "user" && (
             <>
               <Link
-                to="/profile"
-                className="block text-center py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition transform hover:scale-105"
-              >
-                Profile
-              </Link>
-              <Link
                 to="/profile/favourites"
-                className="block text-center py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition transform hover:scale-105"
+                className="flex items-center gap-4 py-2 px-4 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition duration-300 transform hover:scale-105"
+                onClick={handleLinkClick}
               >
+                <FaRegHeart />
                 Favourites
               </Link>
               <Link
                 to="/profile/orderHistory"
-                className="block text-center py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition transform hover:scale-105"
+                className="flex items-center gap-4 py-2 px-4 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition duration-300 transform hover:scale-105"
+                onClick={handleLinkClick}
               >
+                <FaHistory />
                 Order History
               </Link>
               <Link
                 to="/profile/settings"
-                className="block text-center py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition transform hover:scale-105"
+                className="flex items-center gap-4 py-2 px-4 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition duration-300 transform hover:scale-105"
+                onClick={handleLinkClick}
               >
+                <FaCogs />
                 Settings
               </Link>
             </>
@@ -90,29 +101,29 @@ const Sidebar = ({ data, loading, error }) => {
             <>
               <Link
                 to="/admin/add-book"
-                className="block text-center py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition transform hover:scale-105"
+                className="flex items-center gap-4 py-2 px-4 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-105"
+                onClick={handleLinkClick}
               >
+                <FaPlus />
                 Add Book
               </Link>
               <Link
                 to="/admin/allorders"
-                className="block text-center py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition transform hover:scale-105"
+                className="flex items-center gap-4 py-2 px-4 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-105"
+                onClick={handleLinkClick}
               >
+                <FaBox />
                 All Orders
-              </Link>
-              <Link
-                to="/admin"
-                className="block text-center py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition transform hover:scale-105"
-              >
-                Admin Panel
               </Link>
             </>
           )}
 
+          {/* Logout Button */}
           <button
             onClick={handleLogout}
-            className="block text-center py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition transform hover:scale-105"
+            className="flex items-center gap-4 py-2 px-4 bg-red-500 text-white rounded-lg hover:bg-red-600 transition duration-300 transform hover:scale-105"
           >
+            <FaUser />
             Logout
           </button>
         </div>
@@ -121,7 +132,7 @@ const Sidebar = ({ data, loading, error }) => {
       {/* Overlay for mobile menu */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 lg:hidden"
+          className="fixed inset-0 bg-black bg-opacity-50 lg:hidden z-40"  // Ensure overlay has a lower z-index than sidebar
           onClick={() => setIsOpen(false)}
         ></div>
       )}
