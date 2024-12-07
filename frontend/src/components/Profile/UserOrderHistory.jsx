@@ -42,10 +42,10 @@ const UserOrderHistory = () => {
             {orders.map((order) => (
               <li key={order._id} className="p-4 border border-zinc-700 rounded-lg bg-zinc-800">
                 <p>
-                  <strong>Book:</strong> {order.book.title}
+                  <strong>Book:</strong> {order.book ? order.book.title : "Book title unavailable"}
                 </p>
                 <p>
-                  <strong>Price:</strong> ₹ {order.book.price}
+                  <strong>Price:</strong> ₹ {order.book ? order.book.price : "N/A"}
                 </p>
                 <p>
                   <strong>Status:</strong> {order.status || "Pending"}

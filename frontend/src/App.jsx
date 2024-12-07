@@ -9,6 +9,10 @@ import LogIn from './pages/LogIn';
 import SignUp from './pages/SignUp';
 import Cart from './pages/Cart';
 import Profile from './pages/Profile';
+import AddBook from './pages/AddBook';
+import EditBook from './pages/EditBook';
+import AllOrders from "./pages/AllOrders";
+import SetUserDetails from './pages/SetUserDetails';
 import ViewBooksDetails from './components/ViewBooksDetails/ViewBooksDetails';
 import Favourites from './components/Profile/Favourites';
 import OrderHistory from './components/Profile/UserOrderHistory';
@@ -54,15 +58,21 @@ const App = () => {
           <Route path="favourites" element={<Favourites />} />
           <Route path="orderHistory" element={<OrderHistory />} />
           <Route path="settings" element={<Settings />} />
-
         </Route>
 
         {/* Role-Based Access */}
         {role === 'admin' && (
-          <Route
-            path="/admin"
-            element={<div>Admin Panel (Replace with actual component)</div>}
-          />
+          <>
+            <Route
+              path="/admin"
+              element={<div>Admin Panel (Replace with actual component)</div>}
+            />
+            <Route path="/admin/add-book" element={<AddBook />} />
+            <Route path="/admin/edit-book/:id" element={<EditBook />} />
+            <Route path="/admin/allorders" element={<AllOrders />} /> 
+            <Route path="/admin/edit-order/:id" element={<SetUserDetails />} />
+
+          </>
         )}
 
         {/* Fallback for Undefined Routes */}

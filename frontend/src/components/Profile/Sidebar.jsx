@@ -1,16 +1,21 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { FiMenu, FiX } from "react-icons/fi";
+import { authActions } from "../../store/auth";
 
 const Sidebar = ({ data, loading, error }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
   const role = useSelector((state) => state.auth.role);
 
   const handleLogout = () => {
+    // Dispatch Redux action for logout
+    dispatch(authActions.logout());
+    localStorage.removeItem("userId"); // Clearing localStorage manually
     localStorage.removeItem("token");
-    localStorage.removeItem("userId");
+    localStorage.removeItem("role");
     navigate("/login");
   };
 
@@ -52,32 +57,58 @@ const Sidebar = ({ data, loading, error }) => {
 
         {/* Navigation Links */}
         <div className="flex flex-col space-y-4 mb-6">
-          <Link
-            to="/profile"
-            className="block text-center py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition transform hover:scale-105"
-          >
-            Profile
-          </Link>
-          <Link
-            to="/profile/favourites"
-            className="block text-center py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition transform hover:scale-105"
-          >
-            Favourites
-          </Link>
-          <Link
-            to="/profile/orderHistory"
-            className="block text-center py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition transform hover:scale-105"
-          >
-            Order History
-          </Link>
-          {role === "admin" && (
-            <Link
-              to="/admin"
-              className="block text-center py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition transform hover:scale-105"
-            >
-              Admin Panel
-            </Link>
+          {role === "user" && (
+            <>
+              <Link
+                to="/profile"
+                className="block text-center py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition transform hover:scale-105"
+              >
+                Profile
+              </Link>
+              <Link
+                to="/profile/favourites"
+                className="block text-center py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition transform hover:scale-105"
+              >
+                Favourites
+              </Link>
+              <Link
+                to="/profile/orderHistory"
+                className="block text-center py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition transform hover:scale-105"
+              >
+                Order History
+              </Link>
+              <Link
+                to="/profile/settings"
+                className="block text-center py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition transform hover:scale-105"
+              >
+                Settings
+              </Link>
+            </>
           )}
+
+          {role === "admin" && (
+            <>
+              <Link
+                to="/admin/add-book"
+                className="block text-center py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition transform hover:scale-105"
+              >
+                Add Book
+              </Link>
+              <Link
+                to="/admin/allorders"
+                className="block text-center py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition transform hover:scale-105"
+              >
+                All Orders
+              </Link>
+              <Link
+                to="/admin"
+                className="block text-center py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition transform hover:scale-105"
+              >
+                Admin Panel
+              </Link>
+            </>
+          )}
+
           <button
             onClick={handleLogout}
             className="block text-center py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition transform hover:scale-105"

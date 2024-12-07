@@ -26,16 +26,29 @@ const Navbar = () => {
             title: "Profile",
             link: "/profile",
         },
+        {
+            title: "Admin Profile",
+            link: "/profile",
+        },
     ];
 
     const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
     const dispatch = useDispatch();
-
+    const role = useSelector((state) => state.auth.role);
     // Remove "Cart" and "Profile" links if not logged in
     if (!isLoggedIn) {
-        links.splice(3, 2);
+        links.splice(3, 3);
     }
 
+    if(isLoggedIn == true && role === "user")
+        {
+            links.splice(5,1);
+        }
+
+    if(isLoggedIn == true && role === "admin")
+    {
+        links.splice(4,1);
+    }
     const [MobileNav, setMobileNav] = useState("hidden");
 
     const handleLogout = () => {

@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import Loader from "../Loader/Loader";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { GrLanguage } from "react-icons/gr";
-import { FaHeart, FaShoppingCart } from "react-icons/fa";
+import { FaHeart, FaShoppingCart, FaEdit, FaTrash } from "react-icons/fa";
 import { useSelector } from "react-redux";
 
 const ViewBooksDetails = () => {
     const { id } = useParams(); // Get book ID from URL parameters
+    const navigate = useNavigate();
     const [Data, setData] = useState(null); // State to store book details
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(true); // Loading state
@@ -86,6 +87,32 @@ const ViewBooksDetails = () => {
         }
     };
 
+    // Edit Book (Admin Only)
+    const handleEdit = () => {
+        navigate(`/admin/edit-book/${id}`);
+    };
+
+    // Delete Book (Admin Only)
+    const handleDelete = async () => {
+        const token = localStorage.getItem("token");
+        const userId = localStorage.getItem("userId");
+
+        try {
+            const response = await axios.delete("http://localhost:1000/api/v1/delete-book", {
+                headers: {
+                    id: userId,
+                    authorization: `Bearer ${token}`,
+                },
+                data: { bookid: id },
+            });
+            alert(response.data.message);
+            navigate("/all-books"); // Redirect to book listing page after deletion
+        } catch (err) {
+            console.error("Failed to delete book:", err.response?.data || err.message);
+            alert(err.response?.data?.message || "Failed to delete book.");
+        }
+    };
+
     if (loading) {
         return (
             <div className="h-screen bg-zinc-900 flex items-center justify-center">
@@ -155,6 +182,25 @@ const ViewBooksDetails = () => {
                                         >
                                             <FaShoppingCart className="inline mr-2" />
                                             Add to Cart
+                                        </button>
+                                    </div>
+                                )}
+
+                                {isLoggedIn && role === "admin" && (
+                                    <div className="mt-6 flex gap-4">
+                                        <button
+                                            className="bg-yellow-500 text-white px-4 py-2 rounded shadow-md hover:bg-yellow-600"
+                                            onClick={handleEdit}
+                                        >
+                                            <FaEdit className="inline mr-2" />
+                                            Edit Book
+                                        </button>
+                                        <button
+                                            className="bg-red-500 text-white px-4 py-2 rounded shadow-md hover:bg-red-600"
+                                            onClick={handleDelete}
+                                        >
+                                            <FaTrash className="inline mr-2" />
+                                            Delete Book
                                         </button>
                                     </div>
                                 )}
