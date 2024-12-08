@@ -16,7 +16,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173", // Local development origin
-      "https://fancy-elf-51dd29.netlify.app", // Deployed frontend origin
+      "https://novelnestt.netlify.app", // Deployed frontend origin
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
