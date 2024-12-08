@@ -24,7 +24,7 @@ const EditBook = () => {
     useEffect(() => {
         const fetchBookDetails = async () => {
             try {
-                const response = await axios.get(`http://localhost:1000/api/v1/get-book-by-id/${id}`);
+                const response = await axios.get(`https://novel-nest-g2ny.onrender.com/api/v1/get-book-by-id/${id}`);
                 setBookDetails(response.data.data); // Set book details in state
             } catch (err) {
                 console.error("Failed to fetch book details:", err);
@@ -59,7 +59,7 @@ const EditBook = () => {
         // Send PUT request to update the book
         try {
             const response = await axios.put(
-                "http://localhost:1000/api/v1/update-book",
+                "https://novel-nest-g2ny.onrender.com/api/v1/update-book",
                 { bookid: id, title, author, price, desc, url, language },
                 {
                     headers: {

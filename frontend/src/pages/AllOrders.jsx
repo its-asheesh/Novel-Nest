@@ -14,7 +14,7 @@ const AllOrders = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await axios.get("http://localhost:1000/api/v1/get-all-orders", {
+        const response = await axios.get("https://novel-nest-g2ny.onrender.com/api/v1/get-all-orders", {
           headers: {
             authorization: `Bearer ${token}`,
           },
@@ -39,7 +39,7 @@ const AllOrders = () => {
   // Handle deleting an order
   const handleDeleteOrder = async (orderId) => {
     try {
-      const response = await axios.delete("http://localhost:1000/api/v1/delete-order", {
+      const response = await axios.delete("https://novel-nest-g2ny.onrender.com/api/v1/delete-order", {
         headers: {
           authorization: `Bearer ${token}`,
         },
@@ -58,7 +58,7 @@ const AllOrders = () => {
   const handleUpdateStatus = async (orderId, status) => {
     try {
       const response = await axios.put(
-        `http://localhost:1000/api/v1/update-status/${orderId}`,
+        `https://novel-nest-g2ny.onrender.com/api/v1/update-status/${orderId}`,
         { status },
         {
           headers: {

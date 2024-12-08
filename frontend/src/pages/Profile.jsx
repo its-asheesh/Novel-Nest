@@ -20,7 +20,7 @@ const Profile = () => {
       }
 
       const response = await axios.get(
-        "http://localhost:1000/api/v1/get-user-information",
+        "https://novel-nest-g2ny.onrender.com/api/v1/get-user-information",
         {
           headers: {
             id: userId,

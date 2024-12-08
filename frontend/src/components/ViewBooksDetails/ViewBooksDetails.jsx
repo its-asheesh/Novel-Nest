@@ -19,7 +19,7 @@ const ViewBooksDetails = () => {
     useEffect(() => {
         const fetchBookDetails = async () => {
             try {
-                const response = await axios.get(`http://localhost:1000/api/v1/get-book-by-id/${id}`);
+                const response = await axios.get(`https://novel-nest-g2ny.onrender.com/api/v1/get-book-by-id/${id}`);
                 setData(response.data.data);
             } catch (err) {
                 console.error("Failed to fetch book details:", err);
@@ -43,7 +43,7 @@ const ViewBooksDetails = () => {
 
         try {
             const response = await axios.put(
-                "http://localhost:1000/api/v1/add-book-to-favourite",
+                "https://novel-nest-g2ny.onrender.com/api/v1/add-book-to-favourite",
                 { bookId: id },
                 {
                     headers: {
@@ -71,7 +71,7 @@ const ViewBooksDetails = () => {
 
         try {
             const response = await axios.put(
-                "http://localhost:1000/api/v1/add-to-cart",
+                "https://novel-nest-g2ny.onrender.com/api/v1/add-to-cart",
                 { bookId: id },
                 {
                     headers: {
@@ -98,7 +98,7 @@ const ViewBooksDetails = () => {
         const userId = localStorage.getItem("userId");
 
         try {
-            const response = await axios.delete("http://localhost:1000/api/v1/delete-book", {
+            const response = await axios.delete("https://novel-nest-g2ny.onrender.com/api/v1/delete-book", {
                 headers: {
                     id: userId,
                     authorization: `Bearer ${token}`,

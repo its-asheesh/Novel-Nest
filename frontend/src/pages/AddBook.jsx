@@ -41,7 +41,7 @@ const AddBook = () => {
 
     try {
       // Sending POST request to add a new book
-      const response = await axios.post("http://localhost:1000/api/v1/add-book", newBook, {
+      const response = await axios.post("https://novel-nest-g2ny.onrender.com/api/v1/add-book", newBook, {
         headers: {
           authorization: `Bearer ${localStorage.getItem("token")}`, // Ensure the admin is authenticated
           id: localStorage.getItem("userId"), // Pass user ID in headers

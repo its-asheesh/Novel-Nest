@@ -15,7 +15,7 @@ const Cart = () => {
       const userId = localStorage.getItem("userId");
       const token = localStorage.getItem("token");
 
-      const response = await axios.get("http://localhost:1000/api/v1/get-user-cart", {
+      const response = await axios.get("https://novel-nest-g2ny.onrender.com/api/v1/get-user-cart", {
         headers: {
           id: userId,
           authorization: `Bearer ${token}`,
@@ -37,7 +37,7 @@ const Cart = () => {
       const token = localStorage.getItem("token");
 
       const response = await axios.post(
-        "http://localhost:1000/api/v1/place-order",
+        "https://novel-nest-g2ny.onrender.com/api/v1/place-order",
         { order: cartItems },
         {
           headers: {
@@ -60,7 +60,7 @@ const Cart = () => {
       const userId = localStorage.getItem("userId");
       const token = localStorage.getItem("token");
 
-      await axios.delete(`http://localhost:1000/api/v1/remove-from-cart/${bookId}`, {
+      await axios.delete(`https://novel-nest-g2ny.onrender.com/api/v1/remove-from-cart/${bookId}`, {
         headers: {
           id: userId,
           authorization: `Bearer ${token}`,

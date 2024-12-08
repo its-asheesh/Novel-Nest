@@ -12,7 +12,7 @@ const Settings = () => {
       const userId = localStorage.getItem("userId");
       const token = localStorage.getItem("token");
 
-      const response = await axios.get("http://localhost:1000/api/v1/get-user-information", {
+      const response = await axios.get("https://novel-nest-g2ny.onrender.com/api/v1/get-user-information", {
         headers: {
           id: userId,
           authorization: `Bearer ${token}`,
@@ -39,7 +39,7 @@ const Settings = () => {
 
     try {
       const response = await axios.put(
-        "http://localhost:1000/api/v1/update-address",
+        "https://novel-nest-g2ny.onrender.com/api/v1/update-address",
         { address },
         {
           headers: {
