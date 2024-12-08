@@ -11,12 +11,12 @@ const Order = require("./routes/order");
 
 const app = express();
 
-// Update CORS configuration
+// CORS Middleware Configuration
 app.use(
   cors({
     origin: [
-      "http://localhost:5173", // Local development origin
-      "https://novelnestt.netlify.app", // Deployed frontend origin
+      "http://localhost:5173", // Local development frontend
+      "https://novelnestt.netlify.app", // Deployed frontend
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
