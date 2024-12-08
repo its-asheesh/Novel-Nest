@@ -11,13 +11,10 @@ const Order = require("./routes/order");
 
 const app = express();
 
-// CORS Middleware Configuration
+// Enable CORS for all origins (development and production)
 app.use(
   cors({
-    origin: [
-      "http://localhost:5173", // Local development frontend
-      "https://novelnestt.netlify.app", // Deployed frontend
-    ],
+    origin: true, // Dynamically handles the `Access-Control-Allow-Origin` based on the request origin
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
